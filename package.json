@@ -1,0 +1,11 @@
+{
+  "name": "dev-quick-notes-extension",
+  "version": "1.0.0",
+  "description": "Chrome Browser Extension for saving code snippets and quick notes (Manifest V3)",
+  "main": "notes.js",
+  "scripts": {
+    "test": "node --test tests/notes.test.js"
+  },
+  "author": "Syahir Mahmud",
+  "license": "MIT"
+}
