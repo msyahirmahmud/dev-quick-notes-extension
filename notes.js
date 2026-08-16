@@ -14,14 +14,24 @@ class NoteManager {
       title: title.trim(),
       content: content ? content.trim() : "",
       tags: tags,
+      pinned: false,
       createdAt: new Date().toISOString()
     };
     this.notes.push(newNote);
     return newNote;
   }
 
+  togglePin(id) {
+    const note = this.notes.find(n => n.id === id);
+    if (note) {
+      note.pinned = !note.pinned;
+      return true;
+    }
+    return false;
+  }
+
   getNotes() {
-    return this.notes;
+    return [...this.notes].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
   }
 
   formatSnippetForClipboard(id) {
@@ -40,13 +50,14 @@ class NoteManager {
   }
 
   searchNotes(keyword) {
-    if (!keyword) return this.notes;
+    if (!keyword) return this.getNotes();
     const kw = keyword.toLowerCase();
-    return this.notes.filter(n => 
+    const filtered = this.notes.filter(n => 
       n.title.toLowerCase().includes(kw) || 
       n.content.toLowerCase().includes(kw) ||
       n.tags.some(t => t.toLowerCase().includes(kw))
     );
+    return filtered.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
   }
 }
 
