@@ -31,8 +31,13 @@ class NoteManager {
   }
 
   getNotes() {
-    // Sort pinned notes first
     return [...this.notes].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+  }
+
+  formatSnippetForClipboard(id) {
+    const note = this.notes.find(n => n.id === id);
+    if (!note) return null;
+    return `// ${note.title}\n${note.content}`;
   }
 
   deleteNote(id) {
