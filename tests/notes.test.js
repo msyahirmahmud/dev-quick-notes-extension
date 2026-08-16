@@ -10,6 +10,17 @@ describe('Dev Quick Notes Extension Unit Tests', () => {
     assert.strictEqual(note.title, 'Git Command');
   });
 
+  test('togglePin prioritizes pinned notes at the top', () => {
+    const mgr = new NoteManager();
+    const n1 = mgr.addNote('Unpinned Note', 'Content 1');
+    const n2 = mgr.addNote('Pinned Note', 'Content 2');
+    mgr.togglePin(n2.id);
+
+    const notes = mgr.getNotes();
+    assert.strictEqual(notes[0].id, n2.id);
+    assert.strictEqual(notes[0].pinned, true);
+  });
+
   test('searchNotes filters by title or tag', () => {
     const mgr = new NoteManager();
     mgr.addNote('Docker Build', 'docker build -t app .', ['docker']);
