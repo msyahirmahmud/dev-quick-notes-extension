@@ -24,6 +24,12 @@ class NoteManager {
     return this.notes;
   }
 
+  formatSnippetForClipboard(id) {
+    const note = this.notes.find(n => n.id === id);
+    if (!note) return null;
+    return `// ${note.title}\n${note.content}`;
+  }
+
   deleteNote(id) {
     const idx = this.notes.findIndex(n => n.id === id);
     if (idx !== -1) {

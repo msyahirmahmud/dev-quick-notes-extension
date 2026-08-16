@@ -10,6 +10,13 @@ describe('Dev Quick Notes Extension Unit Tests', () => {
     assert.strictEqual(note.title, 'Git Command');
   });
 
+  test('formatSnippetForClipboard formats code with title comment', () => {
+    const mgr = new NoteManager();
+    const note = mgr.addNote('Docker Run', 'docker run -p 80:80 nginx');
+    const formatted = mgr.formatSnippetForClipboard(note.id);
+    assert.strictEqual(formatted, '// Docker Run\ndocker run -p 80:80 nginx');
+  });
+
   test('searchNotes filters by title or tag', () => {
     const mgr = new NoteManager();
     mgr.addNote('Docker Build', 'docker build -t app .', ['docker']);
